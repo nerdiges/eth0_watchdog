@@ -1,0 +1,14 @@
+[Unit]
+Description=Restarts eth0 when network connection fails.
+After=network.target
+
+[Service]
+PermissionsStartOnly=true
+ExecStart=/opt/eth0_watchdog/eth0_watchdog.sh
+WorkingDirectory=/opt/eth0_watchdog
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
