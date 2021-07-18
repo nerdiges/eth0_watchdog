@@ -7,11 +7,25 @@ Dazu wird ein Script per `systemd` beim Systemstart ausgeführt, dass alle 30 Se
 ## Installation
 
 ```
+# 1. install in /opt
 cd /opt
+
+# 2. clone project
 git clone https://github.com/nerdiges/eth0_watchdog.git
+
+# 3. Copy service file for systemd
 cp eth0_watchdog.service /etc/systemd/system/eth0_watchdog.service
+
+# 4. Reload systemd to integrate script
 systemctl daemon-reload
+
+# 5. Start service
 systemctl start eth0_watchdog.service
+
+# 6. Check if service is running
+systemctl status eth0_watchdog.service
+
+# 7. Autostart service on boot
 systemctl enable eth0_watchdog.service
 ```
 
