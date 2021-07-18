@@ -1,8 +1,8 @@
 # eth0_watchdog für den Raspberry Pi
-Aufgrund eines Bugs, wird die Netzwerkkarte meines Raspberry Pi 2 nicht neu initialisiert, wenn der Link temporär ausfällt. Mit diesem Script wird die Netzwerkkarte neu initialisiert, wenn der Link zurück kommt.
+Aufgrund eines Bugs, wird die Netzwerkkarte des Raspberry Pi 2 nicht neu initialisiert, wenn der Link temporär ausfällt. Mit einem Script kann die Netzwerkkarte jedoch regelmäßig neu initialisiert werden, wenn der Link ausfällt, solange bis die Netzwerkverbindung wieder hergestellt wurde.
 
 ## Funktionsweise
-Dazu wird ein Script per `systemd` beim Systemstart ausgeführt, dass alle 30 Sekunden überprüft, ob dem Interface `eth0` noch eine IP-Adresse zugeordet ist und ob das Default Gateway noch per Ping erreichbar ist. Falls eine dieser Checks fehlschlägt wird `ip link set eth0 down`und `up` das interface herunter und wieder hoch gefahren, so dass der Netzwerkmanager (bei Raspberry OS standardmäßig dhcpcd) eine neue IP-Adresse bezieht.
+Das Script eth0_watchdog.sh wird per `systemd` beim Systemstart ausgeführt und prüft alle 30 Sekunden, ob dem Interface `eth0` noch eine IP-Adresse zugeordet ist und das Default Gateway noch per Ping erreichbar ist. Falls eine dieser Checks fehlschlägt wird per `ip link set eth0 down` und `up` das Interface herunter und wieder hoch gefahren, so dass eine erneute Initialisierung durch den Netzwerkmanager (bei Raspberry OS standardmäßig dhcpcd) erzwungen wird.
 
 ## Installation
 
@@ -29,3 +29,4 @@ systemctl status eth0_watchdog.service
 systemctl enable eth0_watchdog.service
 ```
 
+Siehe auch: https://nerdig.es/raspi-eth0-watchdog/
